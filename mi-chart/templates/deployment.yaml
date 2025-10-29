@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mi-app-otsugua-deployment-3
+  name: mi-deployment-{{ .Values.name }}
   namespace: {{ .Values.namespace }}
   labels:
     app:  {{ .Values.name }}
