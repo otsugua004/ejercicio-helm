@@ -44,17 +44,3 @@ spec:
             port: 3000
           failureThreshold:
           periodSeconds: 10
-        readinessProbe:
-          httpGet:
-            path: /readines
-            port: 3000
-          failureThreshold:
-          initialDelaySecon
-          periodSeconds: 10
-        livenessProbe:
-          httpGet:
-            path: /health
-            port: 3000
-          failureThreshold:
-          initialDelaySecon
-          periodSeconds: 10
