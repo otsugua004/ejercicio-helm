@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: mi-servicio-otsugua
+  name: mi-servicio-otsugua-3
   namespace: otsugua04-dev
 spec:
   selector:
-    app: mi-app-otsugua
+    app: mi-app-otsugua-3
   ports:
     - protocol: TCP
       port: 4000
