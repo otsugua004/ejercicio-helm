@@ -1,13 +1,13 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mi-app-otsugua-3
+  name: mi-app-otsugua-deployment-3
   namespace: otsugua04-dev
   labels:
     app: mi-app-otsugua-3
     areanegocio: tecnologia
 spec:
-  replicas: 2
+  replicas: {{ .Values.container.replicas }}
   selector:
     matchLabels:
       app: mi-app-otsugua-3
@@ -23,16 +23,16 @@ spec:
     spec:
       containers:
       - name: mi-app-container
-        image: otsugua04/hola-mundo-service1:build-{{ tag }} 
+        image: otsugua04/hola-mundo-service1:build-{{ .Values.container.tag }}
         ports:
-        - containerPort: 3000
+        - containerPort: {{ .Values.container.port }}
         resources:
           requests:
-            cpu: 500m
-            memory: 500Mi
+            cpu: {{ .Values.container.cpuRequests }}
+            memory: {{ .Values.container.memoryRequests }}
           limits:
-            cpu: 800m
-            memory: 1500Mi
+            cpu: {{ .Values.container.cpuLimits }}
+            memory: {{ .Values.container.memoryLimits }}
         envFrom:
             - configMapRef:
                 name: mi-configmap-otsugua
@@ -41,20 +41,20 @@ spec:
         startupProbe:
           httpGet:
             path: /startup
-            port: 3000
+            port: {{ .Values.container.port }}
           failureThreshold: 5
           periodSeconds: 10
         readinessProbe:
           httpGet:
             path: /readiness
-            port: 3000
+            port: {{ .Values.container.port }}
           failureThreshold: 5
           initialDelaySeconds: 0
           periodSeconds: 10
         livenessProbe:
           httpGet:
             path: /health
-            port: 3000
+            port: {{ .Values.container.port }}
           failureThreshold: 5
           initialDelaySeconds: 0
           periodSeconds: 10

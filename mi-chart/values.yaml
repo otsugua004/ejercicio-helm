@@ -1,0 +1,21 @@
+container:
+  tag: 34
+  port: 3000
+  image: otsugua04/hola-mundo-service1
+  replicas: 2
+  cpuRequests: "500m"
+  memRequests: "800Mi"
+  cpuLimits: "1000m"
+  memLimits: "1500Mi"
+
+service:
+  type: ClusterIP
+  nodeport: 30967
+  port: 3000
+  targetPort: 3000
+
+labels:
+    app: mi-app-otsugua-3
+ 
+minReplicas: 1
+maxReplicas: 5
