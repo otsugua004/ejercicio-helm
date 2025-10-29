@@ -2,15 +2,15 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mi-app-otsugua-deployment-3
-  namespace: otsugua04-dev
+  namespace: {{ .Values.namespace }}
   labels:
-    app: mi-app-otsugua-3
+    app:  {{ .Values.name }}
     areanegocio: tecnologia
 spec:
   replicas: {{ .Values.container.replicas }}
   selector:
     matchLabels:
-      app: mi-app-otsugua-3
+      app:  {{ .Values.name }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -19,11 +19,11 @@ spec:
   template:
     metadata:
       labels:
-        app: mi-app-otsugua-3
+        app:  {{ .Values.name }}
     spec:
       containers:
       - name: mi-app-container
-        image: otsugua04/hola-mundo-service1:build-{{ .Values.container.tag }}
+        image:  {{ .Values.container.image }}:{{ .Values.container.tag }}
         ports:
         - containerPort: {{ .Values.container.port }}
         resources:
@@ -35,9 +35,9 @@ spec:
             memory: {{ .Values.container.memoryLimits }}
         envFrom:
             - configMapRef:
-                name: mi-configmap-otsugua
+                name: mi-configmap-{{ .Values.name }}
             - secretRef:
-                name: mi-secret-otsugua
+                name: mi-secret-{{ .Values.name }}
         startupProbe:
           httpGet:
             path: /startup

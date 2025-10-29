@@ -1,3 +1,7 @@
+name: mi-app-otsugua-3
+
+namespace: otsugua04-dev
+
 container:
   tag: 23
   port: 3000
@@ -17,5 +21,14 @@ service:
 labels:
     app: mi-app-otsugua-3
  
-minReplicas: 1
-maxReplicas: 5
+hpa:
+  minReplicas: 1
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 75
+
+configmap:
+  database: "192.168.1.1"
+
+secret:
+  # plain text password; template will base64-encode when placing into `data:`
+  password: "hola"
