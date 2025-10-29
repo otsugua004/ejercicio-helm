@@ -22,10 +22,10 @@ spec:
         app: mi-app-otsugua
     spec:
       containers:
-      - name: mi-app-contai
-        image: otsugua04/ho
+      - name: mi-app-container
+        image: otsugua04/hola-mundo-service1:build-{{ tag }} 
         ports:
-        - containerPort: 30
+        - containerPort: 3000
         resources:
           requests:
             cpu: 500m
@@ -35,12 +35,26 @@ spec:
             memory: 1500Mi
         envFrom:
             - configMapRef:
-                name: mi-co
+                name: mi-configmap-otsugua
             - secretRef:
-                name: mi-se
+                name: mi-secret-otsugua
         startupProbe:
           httpGet:
             path: /startup
             port: 3000
-          failureThreshold:
+          failureThreshold: 5
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /readiness
+            port: 3000
+          failureThreshold: 5
+          initialDelaySeconds: 0
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          failureThreshold: 5
+          initialDelaySeconds: 0
           periodSeconds: 10
