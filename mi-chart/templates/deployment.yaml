@@ -33,11 +33,11 @@ spec:
           limits:
             cpu: {{ .Values.container.cpuLimits }}
             memory: {{ .Values.container.memoryLimits }}
-        envFrom:
-            - configMapRef:
-                name: mi-configmap-{{ .Values.name }}
-            - secretRef:
-                name: mi-secret-{{ .Values.name }}
+#        envFrom:
+#            - configMapRef:
+#                name: mi-configmap-{{ .Values.name }}
+#            - secretRef:
+#                name: mi-secret-{{ .Values.name }}
         startupProbe:
           httpGet:
             path: /startup
