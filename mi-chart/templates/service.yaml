@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: mi-servicio-otsugua-3
-  namespace: otsugua04-dev
+  name: mi-servicio-{{ .Values.name }}
+  namespace: {{ .Values.namespace }}  # Asegúrate de que coincida con tu Deployment
 spec:
   selector:
-    app: mi-app-otsugua-3
+    app: {{ .Values.name }}  # Debe coincidir con las labels del Deployment
   ports:
     - protocol: TCP
-      port: {{ .Values.service.port }}
-      targetPort: {{ .Values.service.targetPort }}
-  type: {{ .Values.service.type }}
+      port: {{ .Values.service.port }}        # Puerto del Service
+      targetPort: {{ .Values.container.port }}  # Puerto del contenedor
+  type: {{ .Values.service.type }}     # Cambia a NodePort o LoadBalancer si quieres acceso externo
 
