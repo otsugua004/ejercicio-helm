@@ -5,7 +5,7 @@ namespace: otsugua04-dev
 container:
   tag: 23
   port: 3000
-  image: otsugua04/hola-mundo-service1
+  image: otsugua04/servicio-bdd
   replicas: 2
   cpuRequests: "500m"
   memRequests: "800Mi"
